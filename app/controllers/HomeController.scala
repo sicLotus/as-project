@@ -1,6 +1,7 @@
 package controllers
 
 import javax.inject._
+import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.{JsonMergeService, UserService}
@@ -32,7 +33,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
       userCommentsJson <- userCommentsFuture
     } yield {
       val mergedJson = jsonMergeService.merge(userJson, userCommentsJson, Option("comments"))
-      Ok(views.html.index(mergedJson.toString))
+      Ok(views.html.index(Json.prettyPrint(mergedJson)))
     }
   }
 }
