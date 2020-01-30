@@ -2,7 +2,6 @@ package controllers
 
 import javax.inject._
 import play.api.libs.json.Json
-import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.{JsonMergeService, UserService}
 
@@ -14,7 +13,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
  */
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents,
-                               val ws: WSClient,
                                val userService: UserService) extends BaseController {
   /**
    * Create an Action to render an HTML page.
