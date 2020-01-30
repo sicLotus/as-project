@@ -2,7 +2,7 @@ package services
 
 import play.api.libs.json._
 
-class JsonMergeService {
+object JsonMergeService {
 
   /**
    * Different merge strategies are automatically applied based on the input argument types.
@@ -16,11 +16,11 @@ class JsonMergeService {
     }
   }
 
-  def mergeObjAndObj(jsObject: JsObject, jsObject2: JsObject): JsObject = {
+  private def mergeObjAndObj(jsObject: JsObject, jsObject2: JsObject): JsObject = {
     jsObject.deepMerge(jsObject2)
   }
 
-  def mergeObjAndArr(jsObject: JsObject, jsArray: JsArray, mergeKey:String): JsObject = {
+  private def mergeObjAndArr(jsObject: JsObject, jsArray: JsArray, mergeKey:String): JsObject = {
     jsObject + (mergeKey -> jsArray)
   }
 
@@ -30,11 +30,11 @@ class JsonMergeService {
    *     [{}.deepMerge(JsObject), {}.deepMerge(JsObject), {}.deepMerge(JsObject), ...]
    *   Alternatively it could be the same implementation like ObjAndArr and just switching the arguments order
    */
-  def mergeArrAndObj(jsArray: JsArray, jsObject: JsObject): Nothing = {
+  private def mergeArrAndObj(jsArray: JsArray, jsObject: JsObject): Nothing = {
     ???
   }
 
-  def mergeArrAndArr(jsArray: JsArray, jsArray2: JsArray): JsArray = {
+  private def mergeArrAndArr(jsArray: JsArray, jsArray2: JsArray): JsArray = {
     jsArray ++ jsArray2
   }
 

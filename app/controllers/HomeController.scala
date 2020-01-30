@@ -15,8 +15,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents,
                                val ws: WSClient,
-                               val userService: UserService,
-                               val jsonMergeService: JsonMergeService) extends BaseController {
+                               val userService: UserService) extends BaseController {
   /**
    * Create an Action to render an HTML page.
    *
@@ -32,7 +31,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
       userJson <- userFuture
       userCommentsJson <- userCommentsFuture
     } yield {
-      val mergedJson = jsonMergeService.merge(userJson, userCommentsJson, Option("comments"))
+      val mergedJson = JsonMergeService.merge(userJson, userCommentsJson, Option("comments"))
       Ok(views.html.index(Json.prettyPrint(mergedJson)))
     }
   }
