@@ -8,12 +8,12 @@ import scala.concurrent.Future
 class UserService @Inject()(apiService: ApiService) {
   val DefaultUserId = 1
 
-  def getUser(id:Option[Int]): Future[JsValue] = {
+  def loadUser(id:Option[Int]): Future[JsValue] = {
     val url = "http://jsonplaceholder.typicode.com/users/" + id.getOrElse(DefaultUserId)
     apiService.sendRequest(url)
   }
 
-  def getUserComments(id:Option[Int]): Future[JsValue] = {
+  def loadUserComments(id:Option[Int]): Future[JsValue] = {
     val url = "http://jsonplaceholder.typicode.com/posts?userId=" + id.getOrElse(DefaultUserId)
     apiService.sendRequest(url)
   }

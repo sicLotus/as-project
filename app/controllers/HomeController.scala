@@ -24,8 +24,8 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
    * a path of `/`.
    */
   def index(id: Option[Int]): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    val userFuture = userService.getUser(id)
-    val userCommentsFuture = userService.getUserComments(id)
+    val userFuture = userService.loadUser(id)
+    val userCommentsFuture = userService.loadUserComments(id)
 
     for {
       userJson <- userFuture
