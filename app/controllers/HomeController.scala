@@ -21,9 +21,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    val userFuture = userService.getUser
-    val userCommentsFuture = userService.getUserComments
+  def index(id: Option[Int]): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val userFuture = userService.getUser(id)
+    val userCommentsFuture = userService.getUserComments(id)
 
     for {
       userJson <- userFuture
