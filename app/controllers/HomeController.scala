@@ -3,7 +3,8 @@ package controllers
 import javax.inject._
 import play.api.libs.ws.WSClient
 import play.api.mvc._
-import services.UserService
+import services.{JsonMergeService, UserService}
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
@@ -13,7 +14,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents,
                                val ws: WSClient,
-                               val userService: UserService) extends BaseController {
+                               val userService: UserService,
+                               val jsonMergeService: JsonMergeService) extends BaseController {
   /**
    * Create an Action to render an HTML page.
    *
@@ -28,6 +30,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     for {
       userJson <- userFuture
       userCommentsJson <- userCommentsFuture
-    } yield Ok(views.html.index(userJson.toString + userCommentsJson.toString()))
+    } yield {
+      val mergedJson = jsonMergeService.merge(userJson, userCommentsJson, Option("comments"))
+      Ok(views.html.index(mergedJson.toString))
+    }
   }
 }
