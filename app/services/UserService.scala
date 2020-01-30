@@ -17,4 +17,12 @@ class UserService @Inject()(ws: WSClient) {
     futureResult
   }
 
+  def getUserComments: Future[JsValue] = {
+    val url = "http://jsonplaceholder.typicode.com/posts?userId=1"
+    val futureResult = ws.url(url).get().map { response =>
+      response.json
+    }
+    futureResult
+  }
+
 }
