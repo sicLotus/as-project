@@ -2,11 +2,10 @@ package services
 
 import javax.inject.Inject
 import play.api.libs.json.JsValue
-import play.api.libs.ws.WSClient
 
 import scala.concurrent.Future
 
-class UserService @Inject()(ws: WSClient, apiService: ApiService) {
+class UserService @Inject()(apiService: ApiService) {
   val DefaultUserId = 1
 
   def getUser(id:Option[Int]): Future[JsValue] = {
