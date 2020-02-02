@@ -1,8 +1,7 @@
-package controllers
+package services
 
 import org.scalatestplus.play._
 import play.api.libs.json.{JsArray, JsObject, Json}
-import services.JsonMergeService
 
 class JsonMergeServiceSpec extends PlaySpec {
 
